@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { reactive } from '#imports'
+import { definePageMeta, reactive, useCustomFetch, useRouter } from '#imports'
 import type { LoginForm } from '~/types/login'
-import type { FormInstance, FormRules } from 'element-plus'
+import type { FormInstance, FormRules  } from 'element-plus'
 
+definePageMeta({
+  middleware: ['only-guests'],
+  layout: 'auth'
+})
+
+const token = useCookie('token')
 const formRef = ref<FormInstance>()
 const form = reactive<LoginForm>({
   username: '',
@@ -15,9 +21,19 @@ const rules = reactive<FormRules>({
 })
 
 async function submitForm() {
-  formRef.value?.validate((valid) => {
-    if (valid) {
-      console.log('submit!')
+  formRef.value?.validate(async (valid) => {
+    if (!valid) return
+    try {
+      const data = await useCustomFetch<{token: string}>('/api/login', {
+        method: 'POST',
+        body: form
+      })
+      if (data?.token) {
+        token.value = data.token
+        await navigateTo('/')
+      }
+    } catch (e) {
+      console.log(e)
     }
   })
 }
