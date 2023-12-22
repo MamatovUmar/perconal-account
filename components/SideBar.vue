@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Back, House, Memo, User, UserFilled } from '@element-plus/icons-vue';
+import { House, Memo, User, UserFilled } from '@element-plus/icons-vue';
 </script>
 
 <template>

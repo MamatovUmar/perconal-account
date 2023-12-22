@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { definePageMeta, reactive, useCustomFetch, useRouter } from '#imports'
+import { definePageMeta, reactive, useCustomFetch } from '#imports'
 import type { LoginForm } from '~/types/login'
 import type { FormInstance, FormRules  } from 'element-plus'
 
