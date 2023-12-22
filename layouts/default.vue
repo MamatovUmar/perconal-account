@@ -1,6 +1,13 @@
 <script setup lang="ts">
-
 import SideBar from '~/components/SideBar.vue';
+import { useRootStore } from '~/store/root';
+
+const { fetchUser } = useRootStore()
+
+onMounted(async () => {
+  await fetchUser()
+})
+
 </script>
 
 <template>
