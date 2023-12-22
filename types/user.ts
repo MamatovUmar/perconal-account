@@ -1,9 +1,12 @@
-export interface IUser {
-  username: string
-  password: string
+export interface IUserForm {
   firstname: string
   lastname: string
   birthdate: string
   city: string
+}
+
+export interface IUser extends IUserForm{
+  username: string
+  password: string
   token: string
 }

@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { House, Memo, User, UserFilled } from '@element-plus/icons-vue';
+import { useRootStore } from '~/store/root';
+
+const root = useRootStore()
 </script>
 
 <template>
   <el-aside width="250px" class="sidebar">
-    <div class="sidebar__profile">
+    <div v-if="root.user" class="sidebar__profile">
       <el-avatar size="large" :icon="UserFilled" />
+      <div class="sidebar__user">
+        {{ root.user?.firstname }} {{ root.user?.lastname }}
+      </div>
     </div>
 
     <el-menu
@@ -33,7 +39,7 @@ import { House, Memo, User, UserFilled } from '@element-plus/icons-vue';
 
 <style scoped lang="scss">
 .sidebar {
-  background: #F0F1F4;
+  background: var(--main-background);
   &__menu {
     border-right: none;
   }
@@ -43,6 +49,10 @@ import { House, Memo, User, UserFilled } from '@element-plus/icons-vue';
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 15px;
+  }
+  &__user {
+    font-weight: 500;
   }
 }
 </style>
