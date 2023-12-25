@@ -9,11 +9,5 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    home
-  </div>
+  <TicketsTable />
 </template>
-
-<style scoped>
-
-</style>
