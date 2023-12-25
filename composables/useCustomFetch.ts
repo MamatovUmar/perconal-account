@@ -18,7 +18,7 @@ export function useCustomFetch<T> (url: string, options: FetchOptions = {}) {
     },
 
     onResponse ({ request, options, response }) {
-      const req = `%c ${options.method?.toUpperCase()}: ${request}`
+      const req = `%c ${options.method?.toUpperCase() ?? 'GET'}: ${request}`
       if (response.ok) {
         console.log(req, `background: green`, {response: response._data})
       } else {
