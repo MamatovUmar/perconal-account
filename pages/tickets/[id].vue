@@ -73,12 +73,13 @@ onMounted(async () => {
     line-height: 20px;
     font-weight: 500;
     row-gap: 10px;
+    font-size: 14px;
     .val {
       font-weight: 400;
     }
   }
   &__text {
-    line-height: 130%;
+    line-height: 140%;
   }
 }
 </style>

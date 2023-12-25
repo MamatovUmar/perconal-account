@@ -16,7 +16,7 @@ const sortOptions = reactive<SortOptions>({
 const filteredTickets = computed(() => {
   const data = root.tickets.filter((el) => el.title.toLowerCase().includes(search.value.toLowerCase()))
   if (sortOptions.order) {
-    data.sort((a, b) => {
+    data.sort((a: ITicket, b: ITicket) => {
       if (sortOptions.order === 'ascending') {
         return a[sortOptions.prop] < b[sortOptions.prop] ? 1 : -1
       } else {

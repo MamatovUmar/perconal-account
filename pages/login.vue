@@ -2,14 +2,16 @@
 import { definePageMeta, reactive, useCustomFetch } from '#imports'
 import type { LoginForm } from '~/types/login'
 import type { FormInstance, FormRules  } from 'element-plus'
+import { useAuth } from '~/composables/useAuth'
 
 definePageMeta({
   middleware: ['only-guests'],
   layout: 'auth'
 })
 
-const token = useCookie('token')
+const auth = useAuth()
 const formRef = ref<FormInstance>()
+
 const form = reactive<LoginForm>({
   username: '',
   password: ''
@@ -23,18 +25,7 @@ const rules = reactive<FormRules>({
 async function submitForm() {
   formRef.value?.validate(async (valid) => {
     if (!valid) return
-    try {
-      const data = await useCustomFetch<{token: string}>('/api/login', {
-        method: 'POST',
-        body: form
-      })
-      if (data?.token) {
-        token.value = data.token
-        await navigateTo('/')
-      }
-    } catch (e) {
-      console.log(e)
-    }
+    await auth.login(form)
   })
 }
 

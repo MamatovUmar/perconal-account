@@ -14,7 +14,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <el-container class="main">
+  <el-container v-loading="loading" class="main">
     <SideBar />
     <el-main>
       <slot />

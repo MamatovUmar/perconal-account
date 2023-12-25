@@ -5,6 +5,7 @@ import { useRootStore } from '~/store/root';
 import type { FormInstance, FormRules } from 'element-plus';
 import type { IUser, IUserForm } from '~/types/user';
 import { cities } from '~/server/constants';
+import { ElMessage } from 'element-plus';
 
 definePageMeta({
   middleware: ['auth-required']
@@ -34,6 +35,7 @@ async function submitForm() {
         method: 'POST',
         body: form
       })
+      ElMessage.success('Saved')
     } catch (e) {
       console.log(e)
     }
