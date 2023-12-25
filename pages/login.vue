@@ -47,11 +47,21 @@ async function submitForm() {
 
       <el-form :model="form" ref="formRef" size="large" :rules="rules">
         <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="Username" />
+          <el-input
+            v-model="form.username"
+            placeholder="Username"
+            @keyup.enter="submitForm"
+          />
         </el-form-item>
 
         <el-form-item prop="password">
-          <el-input v-model="form.password" type="password" placeholder="Password" show-password />
+          <el-input
+            v-model="form.password"
+            type="password"
+            placeholder="Password"
+            show-password
+            @keyup.enter="submitForm"
+          />
         </el-form-item>
 
         <el-form-item>
