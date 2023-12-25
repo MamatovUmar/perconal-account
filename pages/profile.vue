@@ -3,7 +3,8 @@
 import { definePageMeta, reactive, useCustomFetch } from '#imports';
 import { useRootStore } from '~/store/root';
 import type { FormInstance, FormRules } from 'element-plus';
-import type { IUserForm } from '~/types/user';
+import type { IUser, IUserForm } from '~/types/user';
+import { cities } from '~/server/constants';
 
 definePageMeta({
   middleware: ['auth-required']
@@ -29,17 +30,17 @@ async function submitForm() {
   formRef.value?.validate(async (valid) => {
     if (!valid) return
     try {
-      // const data = await useCustomFetch('/api/user', {
-      //   method: 'POST',
-      //   body: form
-      // })
+      root.user = await useCustomFetch<IUser>('/api/user', {
+        method: 'POST',
+        body: form
+      })
     } catch (e) {
       console.log(e)
     }
   })
 }
 
-watch(() => root.user, () => {
+watchEffect(() => {
   if (root.user) {
     form.firstname = root.user.firstname
     form.lastname = root.user.lastname
@@ -83,15 +84,20 @@ watch(() => root.user, () => {
 
           <el-col :span="12">
             <el-form-item prop="birthdate" label="Birthdate">
-              <el-input v-model="form.birthdate" />
+              <el-date-picker
+                v-model="form.birthdate"
+                type="date"
+                format="DD.MM.YYYY"
+                value-format="YYYY-MM-DD"
+                class="w-100"
+              />
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item prop="city" label="City">
               <el-select v-model="form.city" class="w-100">
-                <el-option label="Zone one" value="shanghai" />
-                <el-option label="Zone two" value="beijing" />
+                <el-option v-for="city of cities" :label="city" :value="city" />
               </el-select>
             </el-form-item>
           </el-col>
